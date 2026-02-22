@@ -2,7 +2,7 @@ import fs from "fs";
 import qrcode from "qrcode";
 
 // Path to your WireGuard config file
-const configFilePath = './conf-sample.conf';
+const configFilePath = process.argv[2] || "./conf-sample.conf";
 
 // Read the config file
 fs.readFile(configFilePath, 'utf8', (err, config) => {

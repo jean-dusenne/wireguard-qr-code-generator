@@ -2,7 +2,7 @@
 
 ## Description
 
-Ce projet est un script Node.js qui génère un code QR à partir d'un fichier de configuration WireGuard exporté depuis une Freebox.
+Ce projet est un script Node.js qui génère un code QR à partir d'un fichier de configuration WireGuard exporté depuis une Freebox. J'utilise un serveur DNS local AdGuard Home pour acceder aux adresses locales quand je suis connecte au VPN.
 
 ## Prérequis
 
@@ -19,28 +19,34 @@ npm ci
 
 ## Utilisation
 
-1. Placez votre fichier de configuration WireGuard (par exemple `conf-sample.conf`) dans le répertoire racine du projet.
-2. Exécutez le script de génération :
+1. Placez votre fichier de configuration WireGuard (par exemple `conf-sample.conf`) dans le repertoire racine du projet.
+2. Executez le script de generation (chemin facultatif) :
 
 ```bash
-npm run generate
+npm run generate -- ./conf-sample.conf
 ```
 
-3. Le code QR sera généré et sauvegardé sous le nom `wireguard_qr.png`.
-4. Scannez le code QR avec l'application WireGuard sur votre téléphone pour importer la configuration modifiée.
+Exemple avec un autre fichier :
+
+```bash
+npm run generate -- /chemin/vers/mon.conf
+```
+
+3. Le code QR sera genere et sauvegarde sous le nom `wireguard_qr.png`.
+4. Scannez le code QR avec l'application WireGuard sur votre telephone pour importer la configuration modifiee.
 
 ## Fonctionnement
 
-- Dans la section `[Interface]` du fichier de configuration WireGuard, modifiez la ligne `DNS = ...` pour qu'elle pointe vers le DNS local de la Freebox. Ainsi vous pourrez accéder aux adresses locales (comme les appareils sur votre réseau domestique) lorsque vous êtes connecté au VPN WireGuard.
+- Dans la section `[Interface]` du fichier de configuration WireGuard, modifiez la valeur `DNS = ...` pour qu'elle pointe vers votre DNS local (AdGuard Home dans mon cas). Ainsi vous pourrez acceder aux adresses locales (comme les appareils sur votre reseau domestique) lorsque vous etes connecte au VPN WireGuard.
 - Le script lit le fichier de configuration WireGuard.
-- Il génère ensuite un code QR contenant la configuration modifiée.
-- Le code QR peut être scanné pour configurer facilement WireGuard sur un appareil mobile.
+- Il genere ensuite un code QR contenant la configuration.
+- Le code QR peut etre scanne pour configurer facilement WireGuard sur un appareil mobile.
 
 ## Remarques
 
-- Assurez-vous que le fichier de configuration est au bon endroit et que le nom correspond à celui dans le script (`conf-sample.conf`).
+- Assurez-vous que le fichier de configuration est au bon endroit ou passez le chemin en argument.
 
 ## Ressources complémentaires
 
 - [Caddy Server](https://caddyserver.com/) : Un serveur web moderne et automatique avec HTTPS automatique.
-- [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) : Un serveur DNS open-source pour bloquer les publicités et trackers sur votre réseau.
+- [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) : Un serveur DNS open-source pour bloquer les publicites et trackers sur votre reseau.
