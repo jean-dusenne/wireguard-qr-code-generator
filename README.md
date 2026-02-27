@@ -26,14 +26,14 @@ npm ci
 npm run generate -- ./conf-sample.conf
 ```
 
-Exemple avec un autre fichier :
+Exemple avec un fichier situé dans un autre répertoire :
 
 ```bash
 npm run generate -- /chemin/vers/mon.conf
 ```
 
-3. Le code QR sera genere et sauvegarde sous le nom `wireguard_qr.png`.
-4. Scannez le code QR avec l'application WireGuard sur votre telephone pour importer la configuration modifiee.
+3. Le code QR est généré dans le **répertoire courant** sous le même nom que le fichier de conf (ex: `file.conf` → `file.png`).
+4. Scannez le code QR avec l'application WireGuard sur votre telephone pour importer la configuration.
 
 ## Fonctionnement
 
