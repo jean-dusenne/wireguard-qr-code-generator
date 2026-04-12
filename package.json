@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "minimist": "^1.2.8",
     "qrcode": "^1.5.4"
   }
 }

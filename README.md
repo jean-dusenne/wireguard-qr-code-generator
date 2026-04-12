@@ -20,31 +20,54 @@ npm ci
 ## Utilisation
 
 1. Placez votre fichier de configuration WireGuard (par exemple `conf-sample.conf`) dans le repertoire racine du projet.
-2. Executez le script de generation (chemin facultatif) :
+2. Executez le script de generation :
 
 ```bash
-npm run generate -- ./conf-sample.conf
-```
+# Fichier par défaut (conf-sample.conf)
+npm run generate
 
-Exemple avec un fichier situé dans un autre répertoire :
+# Fichier spécifique
+npm run generate -- ./mon-fichier.conf
 
-```bash
+# Fichier situé dans un autre répertoire
 npm run generate -- /chemin/vers/mon.conf
 ```
+
+### Option `--dns`
+
+L'option `--dns` permet d'écraser la valeur du champ `DNS` dans le fichier de configuration au moment de la génération, sans modifier le fichier source.
+
+```bash
+# Overrider le DNS avec une adresse personnalisée
+npm run generate -- --dns=192.168.1.1
+
+# Combiner fichier spécifique et override DNS
+npm run generate -- ./mon-fichier.conf --dns=192.168.1.53
+```
+
+> 💡 Le `--` est nécessaire avec `npm run` pour que les arguments soient transmis au script Node.js et non interprétés par npm.
 
 3. Le code QR est généré dans le **répertoire courant** sous le même nom que le fichier de conf (ex: `file.conf` → `file.png`).
 4. Scannez le code QR avec l'application WireGuard sur votre telephone pour importer la configuration.
 
 ## Fonctionnement
 
-- Dans la section `[Interface]` du fichier de configuration WireGuard, modifiez la valeur `DNS = ...` pour qu'elle pointe vers votre DNS local (AdGuard Home dans mon cas). Ainsi vous pourrez acceder aux adresses locales (comme les appareils sur votre reseau domestique) lorsque vous etes connecte au VPN WireGuard.
 - Le script lit le fichier de configuration WireGuard.
-- Il genere ensuite un code QR contenant la configuration.
+- Si l'option `--dns` est fournie, la valeur du champ `DNS = ...` dans la section `[Interface]` est remplacée à la volée (le fichier source n'est pas modifié).
+- Il genere ensuite un code QR PNG contenant la configuration complète.
 - Le code QR peut etre scanne pour configurer facilement WireGuard sur un appareil mobile.
+
+## Dépendances
+
+| Package | Rôle |
+|---------|------|
+| [`qrcode`](https://www.npmjs.com/package/qrcode) | Génération du QR code en PNG |
+| [`minimist`](https://www.npmjs.com/package/minimist) | Parsing des arguments CLI (`--dns`, etc.) |
 
 ## Remarques
 
 - Assurez-vous que le fichier de configuration est au bon endroit ou passez le chemin en argument.
+- L'option `--dns` est utile si votre DNS local change ou si vous souhaitez générer plusieurs QR codes avec des DNS différents sans modifier vos fichiers `.conf`.
 
 ## Ressources complémentaires
 
